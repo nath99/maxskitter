@@ -1,4 +1,13 @@
 <?php
+/**
+ * Skitter config file
+ * You can setup per slide animation effect.
+ * @package maxskitter - silverstripe module for slides management and presentation with jQuery skitter plugin
+ * @link skitter http://www.thiagosf.net/projects/jquery/skitter/
+ * @link maxskitter https://github.com/Silvermax/maxskitter/
+ * @author Pali Ondras
+ */
+
 // Default decorators and extensions, for more info check corresponding files stored in maxskitter/code folder
 DataObject::add_extension("SiteTree", "MaxSkitterDecorator");
 Object::add_extension("ContentController", "MaxSkitterExtension");

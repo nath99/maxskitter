@@ -4,7 +4,7 @@
  * Changes made here will reset enabled staticConfig configuration (editable via mysite/_config.php file).
  * @package maxskitter - silverstripe module for slides management and presentation with jQuery skitter plugin
  * @link skitter http://www.thiagosf.net/projects/jquery/skitter/
- * @link maxskitter http://
+ * @link maxskitter https://github.com/Silvermax/maxskitter/
  * @author Pali Ondras
  */
 

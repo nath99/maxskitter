@@ -9,7 +9,7 @@
  * <code>Requirements::block("maxskitter/javascript/xyz.js");</code>
  * @package maxskitter - silverstripe module for slides management and presentation with jQuery skitter plugin
  * @link skitter http://www.thiagosf.net/projects/jquery/skitter/
- * @link maxskitter http://
+ * @link maxskitter https://github.com/Silvermax/maxskitter/
  * @author Pali Ondras
  */
 
