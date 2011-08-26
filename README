@@ -27,6 +27,7 @@ You can configure skitter options in 3 places (its up to you which one you use, 
 
 **StaticConfig example (placed in mysite/_config.php):**
 
+```php
 MaxSkitterDefaults::set_staticConfig(array(
     "animation" => "'cube'",
     "easing_default" => "'easeOutBack'",
@@ -34,6 +35,7 @@ MaxSkitterDefaults::set_staticConfig(array(
     "navigation" => "false",
     "label" => "false"
 ));
+```
 
 **SiteConfig:**
 
@@ -48,16 +50,38 @@ Exactly same as SiteConfig, config tab places in Root.ContentSkitterConfig tab o
 
 If you are fine with cropped resizing of your images, you can configure dimension in you mysite/_config.php. Example:
 
+```php
 MaxSkitterImageDecorator::$SkitterSlideWidth = 850;
 MaxSkitterImageDecorator::$SkitterSlideHeight = 250;
+```
 
 Default box size is 800x300px which will not suit your needs in many case. This size is defined in maxskitter/css/skitter.styles.css. You can copy this file to your theme and edit as you need, or you can just create css called skitter.custom.css in your theme and edit only what you need, example:
 
+```css
 .box_skitter {position:relative;width:850px;height:250px;background:#fff;}
 .box_skitter .info_slide {right:15px; left: auto}
+```
 
 if you dont like used cropped resize, use your own copy of file maxskitter/code/MaxSkitterImageDecorator.php (with custom name of class and methods), enable it in your mysite/_config.php and copy  maxskitter/templates/Includes/SkitterImage.ss in your theme and change called image resizing method name.
 
 ## Adding slides
 
 Each page has tab with Slides manager (Root.Content.SkitterSlides), which enables uploading and managing Skitter Slides. If you need reorder slides, make sure you saved current selection.
+
+## Showing slides in Template
+
+Place in your desired template file (this will generate Skitter HTML if slides available and nothing if no slides defined):
+
+```html
+$SkitterSlidesRecursive
+```
+
+or (this will show your no-slide image if no slides available)
+
+```html
+<% if SkitterSlidesRecursive %>
+	$SkitterSlidesRecursive
+<% else %>
+	<img src="$themedir/images/no-slide.jpg" alt="" />
+<% end_if %>
+```
