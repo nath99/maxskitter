@@ -2,7 +2,9 @@
 
 **Skitter** is full-featured jQuery Slideshow plugin with beautifull transitions. Is highly configurable and with good performance. Skitter website is here: [[http://www.thiagosf.net/projects/jquery/skitter/]]
 
-This module makes Skitter working with your SilverStripe installation. **Key features**:
+This module makes Skitter working with your SilverStripe installation. 
+
+## Key features
 
 * Almost all Skitter options editable via SS installation in 3 places: config file (global config), SiteConfig (global config) and Page (page specific config)
 * Any Page can have unlimited Slides, Slides are shared between Pages.
