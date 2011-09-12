@@ -34,8 +34,8 @@ class MaxSkitterExtension extends Extension {
 	      Requirements::combine_files("combined.skitter.js", $JS);
 		  
 		  Requirements::customScript("
-				$(document).ready(function() {
-				$('#skitter').skitter({
+				jQuery(document).ready(function() {
+				jQuery('#skitter').skitter({
 					".$this->owner->get_skitter_config_for_js()."
 				});
 			});
