@@ -18,7 +18,7 @@ DataObject::add_extension("SiteConfig", "MaxSkitterSiteConfigDecorator");
 Object::add_extension("Image", "MaxSkitterImageDecorator");
 
 // Per page specific drag & drop for sorting slides
-SortableDataObject::add_sortable_many_many_relation('SiteTree','MaxSkitterSlides');
+SortableDataObject::add_sortable_many_many_relation('Page','MaxSkitterSlides');
 
 /** Skitter Configuration Example (mysite/_config.php) **/
 //MaxSkitterDefaults::$debugSkitter = true;
