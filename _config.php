@@ -9,9 +9,9 @@
  */
 
 // Default decorators and extensions, for more info check corresponding files stored in maxskitter/code folder
-DataObject::add_extension("SiteTree", "MaxSkitterDecorator");
-Object::add_extension("ContentController", "MaxSkitterExtension");
-DataObject::add_extension("SiteTree", "MaxSkitterPageConfigDecorator");
+DataObject::add_extension("Page", "MaxSkitterDecorator");
+Object::add_extension("Page_Controller", "MaxSkitterExtension");
+DataObject::add_extension("Page", "MaxSkitterPageConfigDecorator");
 DataObject::add_extension("SiteConfig", "MaxSkitterSiteConfigDecorator");
 
 // Creating croppedResize slide image
