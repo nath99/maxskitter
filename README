@@ -1,13 +1,13 @@
 **MaxSkitter** is SilverStripe module for slides management and presentation with jQuery skitter plugin.
 
-**Skitter** is full-featured jQuery Slideshow plugin with beautifull transitions. Is highly configurable and with good performance. Skitter website is here: [[http://www.thiagosf.net/projects/jquery/skitter/]]
+**Skitter** is full-featured jQuery Slideshow plugin with beautifull transitions. Is highly configurable and has good performance. Skitter website is here: [[http://www.thiagosf.net/projects/jquery/skitter/]], github sources here: [[https://github.com/thiagosf/SkitterSlideshow]]
 
 This module makes Skitter working with your SilverStripe installation. 
 
 ## Key features
 
 * Almost all Skitter options editable via SS installation in 3 places: config file (global config), SiteConfig (global config) and Page (page specific config)
-* Any Page can have unlimited Slides, Slides are shared between Pages.
+* Any Page can have unlimited Slides, Slides are shared between Pages. You can enable/disable any Slide on any Page.
 * Any Page can have any combination of Slides together with custom sort order.
 * Each slide can point to External or Internal URL.
 
@@ -68,7 +68,7 @@ if you dont like used cropped resize, use your own copy of file maxskitter/code/
 
 ## Adding slides
 
-Each page has tab with Slides manager (Root.Content.SkitterSlides), which enables uploading and managing Skitter Slides. If you need reorder slides, make sure you saved current selection.
+Each page has tab with Slides manager (Root.Content.SkitterSlides), which enables uploading and managing Skitter Slides. If you need reorder slides, make sure you saved current selection. Only checked (enabled) Slides are shown on the Page (because same Slides can be used on multiple Pages, you must have an option to enable/disable Slides on any Page. By default (after uploading) are Slides disabled - not checked).
 
 ## Showing slides in Template
 
@@ -87,3 +87,9 @@ or (this will show your no-slide image if no slides available)
 	<img src="$themedir/images/no-slide.jpg" alt="" />
 <% end_if %>
 ```
+
+## Collaboration
+If you want to help out and make some improvements please fork this project and submit a pull request (see this guide on how to do this:  [Pull requests](http://help.github.com/pull-requests/)). 
+
+## Problems / issues
+Contact me at admin [.a.] silverstripe.sk.
