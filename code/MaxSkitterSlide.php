@@ -22,7 +22,7 @@ class MaxSkitterSlide extends DataObject
 		"InternalLink" => "SiteTree"
 	);
 	
-	static $belongs_many_many = array('MaxSkitterDecorator'=>'MaxSkitterDecorator');
+	static $belongs_many_many = array('Page'=>'Page');
 	
 	public function getCMSFields_forPopup()
 	{
@@ -37,6 +37,21 @@ class MaxSkitterSlide extends DataObject
 			new FileIFrameField('MaxSkitterImage')
 		);
 	}
+	
+   /**
+    * Add newly created items to the parent
+    */
+   function onAfterWrite() {
+      $relatedClass = 'Page';
+      if ( array_key_exists('ctf[parentClass]', $this->record) && $this->record['ctf[parentClass]'] == $relatedClass ) {
+        $components = $this->getManyManyComponents($relatedClass);
+    	if ( ! in_array((int)$this->record['ctf[sourceID]'], $components->getIdList()) ) {
+        	$components->add((int)$this->record['ctf[sourceID]']);
+			$components->write();
+        }
+     }
+     parent::onAfterWrite();
+   } 
 	
 	function onBeforeWrite() {
 		parent::onBeforeWrite();

@@ -60,7 +60,18 @@ class MaxSkitterDefaults {
 		'directionRight',
 		'directionLeft',
 		'cubeStopRandom',
-		'cubeSpread'
+		'cubeSpread',
+		'glassCube',
+		'glassBlock',
+		'circles',
+		'circlesInside',
+		'circlesRotate',
+		'cubeShow',
+		'upBars', 
+		'downBars', 
+		'hideBars', 
+		'swapBars', 
+		'swapBarsBack'
 	);
 	
 	public function set_animations($array) {

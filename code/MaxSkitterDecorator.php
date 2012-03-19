@@ -34,9 +34,9 @@ class MaxSkitterDecorator extends DataObjectDecorator {
 			// Sort clause
 			// Join clause
 		);
-		//$teasers->setOnlyRelated(true);
-		//$teasers->setPermissions(array('edit'));
-		//$teasers->setMarkingPermission(false);
+		$slides->setParentClass("Page");
+		$slides->setSourceID($this->owner->ID);
+		$slides->setOnlyRelated(true);
 		$fields->addFieldToTab("Root.Content.SkitterSlides", $slides);
 	}
 	
