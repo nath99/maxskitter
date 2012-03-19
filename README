@@ -8,7 +8,7 @@ This module makes Skitter working with your SilverStripe installation.
 
 * Almost all Skitter options editable via SS installation in 3 places: config file (global config), SiteConfig (global config) and Page (page specific config)
 * Any Page can have unlimited Slides, Slides are shared between Pages. You can enable/disable any Slide on any Page.
-* Any Page can have any combination of Slides together with custom sort order.
+* Any Page can have any combination of Slides, custom sort order available on per page basis too.
 * Each slide can point to External or Internal URL.
 
 ## Requirements
@@ -31,8 +31,8 @@ You can configure skitter options in 3 places (its up to you which one you use, 
 
 ```php
 MaxSkitterDefaults::set_staticConfig(array(
-    "animation" => "'cube'",
-    "easing_default" => "'easeOutBack'",
+    "animation" => "cube",
+    "easing_default" => "easeOutBack",
     "animateNumberActive" => "{backgroundColor:'#004581', color:'#fff'}",
     "navigation" => "false",
     "label" => "false"
@@ -41,12 +41,11 @@ MaxSkitterDefaults::set_staticConfig(array(
 
 **SiteConfig:**
 
-Find Skitter tab in your SiteConfig section. Place exactly same values as on skitter homepage: http://www.thiagosf.net/projects/jquery/skitter/.
-So if you want cube animation, place in the field: 'cube', if you dont need navigation place in the field: false...
+Find Skitter tab in your SiteConfig section. Place values as on skitter homepage: http://www.thiagosf.net/projects/jquery/skitter/. So if you want cube animation, place in the field: cube, if you dont need navigation place in the field: false...
 
 **Page config:**
 
-Exactly same as SiteConfig, config tab places in Root.ContentSkitterConfig tab of your Page.
+Exactly same as SiteConfig, config tab available in Root.Content.SkitterConfig tab of your Page.
 
 ### Configuration of Skitter box size and Skitter images size:
 
@@ -57,7 +56,7 @@ MaxSkitterImageDecorator::$SkitterSlideWidth = 850;
 MaxSkitterImageDecorator::$SkitterSlideHeight = 250;
 ```
 
-Default box size is 800x300px which will not suit your needs in many case. This size is defined in maxskitter/css/skitter.styles.css. You can copy this file to your theme and edit as you need, or you can just create css called skitter.custom.css in your theme and edit only what you need, example:
+Default box size is 800x300px which will not suit your needs in many case. This size is defined in maxskitter/css/skitter.styles.css. You can copy this file to your theme and edit as you need, or you can just create css called skitter.custom.css in your theme and edit only what you need (this css will be called automaticly), example:
 
 ```css
 .box_skitter {position:relative;width:850px;height:250px;background:#fff;}
@@ -68,7 +67,7 @@ if you dont like used cropped resize, use your own copy of file maxskitter/code/
 
 ## Adding slides
 
-Each page has tab with Slides manager (Root.Content.SkitterSlides), which enables uploading and managing Skitter Slides. If you need reorder slides, make sure you saved current selection. Only checked (enabled) Slides are shown on the Page (because same Slides can be used on multiple Pages, you must have an option to enable/disable Slides on any Page. By default (after uploading) are Slides disabled - not checked).
+Each page has tab with Slides manager (Root.Content.SkitterSlides), which enables uploading and managing Skitter Slides. If you need reorder slides, make sure you saved current selection. Only checked (enabled) Slides are shown on the Page (because same Slides can be used on multiple Pages, you must have an option to enable/disable Slides on any Page. After you upload new slides, they are automaticly related to current Page, if you dont need them, just uncheck coresponding checkboxes. If you want to add Slide uploaded in the past to some Pages's selection, just uncheck option "Show only related items" and select from all uploaded slides.
 
 ## Showing slides in Template
 
@@ -92,4 +91,4 @@ or (this will show your no-slide image if no slides available)
 If you want to help out and make some improvements please fork this project and submit a pull request (see this guide on how to do this:  [Pull requests](http://help.github.com/pull-requests/)). 
 
 ## Problems / issues
-Contact me at admin [.a.] silverstripe.sk.
+There are 3 common issues with maxskitter module: 1) Slides are not showing up. Reason: slides are added via backend, but not activated by checking the checkbox. 2) Script doesn't work. Reason: core jquery is called twice - if you have your own core jquery already called, disable maxskitter's version by adding thins into mysite/_config.php: Requirements::block("maxskitter/javascript/jquery-1.6.3.min.js"); Same issue is possible with easing and animate-color jquery files. Block them if your own versions already called. 3) Instead of slides, black box is shown. Reason: javascript conflicts - if maxskitter is not working even 1) and 2) is fine, try to disable all your custom JS scripts if it helps.
