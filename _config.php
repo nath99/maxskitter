@@ -26,8 +26,8 @@ SortableDataObject::add_sortable_many_many_relation('Page','MaxSkitterSlides');
 //MaxSkitterImageDecorator::$SkitterSlideHeight = 250;
 /*
 MaxSkitterDefaults::set_staticConfig(array(
-	"animation" => "'cube'",
-	"easing_default" => "'easeOutBack'",
+	"animation" => "cube",
+	"easing_default" => "easeOutBack",
 	"animateNumberActive" => "{backgroundColor:'#004581', color:'#fff'}",
 	"navigation" => "false",
 	"label" => "false"

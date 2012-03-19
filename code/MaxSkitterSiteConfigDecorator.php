@@ -12,20 +12,13 @@ class MaxSkitterSiteConfigDecorator extends DataObjectDecorator {
 	
 	function extraStatics() {
 		return array(
-			'db' => MaxSkitterDefaults::get_dbFields()
+			'db' => MaxSkitterDefaults::get_skitterDbFields()
 		);
 	}
 	
-  // Create CMS fields
-  public function updateCMSFields(&$fields) {
-		foreach (MaxSkitterDefaults::get_dbFields() as $key => $value) {
-			if ($key == "animation") {
-				$fields->addFieldToTab("Root.Skitter",MaxSkitterDefaults::get_animations_dropdown());
-			} else {
-				$fields->addFieldToTab("Root.Skitter",new TextField($key, _t("Skitter.".$key,$key)));
-			}
-		}	
-  }
+	function updateCMSFields(&$fields) {			
+			$fields->addFieldsToTab("Root.Skitter",MaxSkitterDefaults::get_skitterCMSFields());
+	}
 				
 }
 //EOF

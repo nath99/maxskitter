@@ -31,7 +31,7 @@ class MaxSkitterSlide extends DataObject
 		
 		return new FieldSet(
 			new TextField('Label', _t("Skitter.Label","Label")),
-			MaxSkitterDefaults::get_animations_dropdown(),
+			MaxSkitterDefaults::get_array_dropdown("animation"),
 			new TextField('ExternalLink', _t("Skitter.ExternalLink","External Link")),
 			$internalLink,
 			new FileIFrameField('MaxSkitterImage')

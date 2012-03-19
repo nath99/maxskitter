@@ -23,7 +23,7 @@ $lang['sk_SK']['Skitter']['animationDefault'] = '-- Prednastavená animácia --'
 $lang['sk_SK']['Skitter']['numbers'] = 'Zobrazenie číselnej navigácie';
 $lang['sk_SK']['Skitter']['navigation'] = 'Zobrazenie navigácie so šípkami (vľavo/vpravo)';
 $lang['sk_SK']['Skitter']['label'] = 'Zobraziť popisok (ak je zadefinovaný)';
-$lang['sk_SK']['Skitter']['easing_default'] = 'Easing efekt - napr.: \'easeOutBack\'';
+$lang['sk_SK']['Skitter']['easing_default'] = 'Easing efekt - napr.: easeOutBack';
 $lang['sk_SK']['Skitter']['animateNumberOut'] = 'Animation/style number/dot';
 $lang['sk_SK']['Skitter']['animateNumberOver'] = 'Animation/style hover number/dot';
 $lang['sk_SK']['Skitter']['animateNumberActive'] = 'Animation/style active number/dot';
@@ -31,7 +31,7 @@ $lang['sk_SK']['Skitter']['thumbs'] = 'Navigácia s náhľadovými obrázkami';
 $lang['sk_SK']['Skitter']['hideTools'] = 'Skryť navigáciu so šípkami i číslami/bodkami';
 $lang['sk_SK']['Skitter']['fullscreen'] = 'Fullscreen mode';
 $lang['sk_SK']['Skitter']['dots'] = 'Namiesto čísiel použiť bodky v navigácii';
-$lang['sk_SK']['Skitter']['width_label'] = 'Šírka popisku - napr.: \'100px\'';
+$lang['sk_SK']['Skitter']['width_label'] = 'Šírka popisku - napr.: 100px';
 $lang['sk_SK']['Skitter']['show_randomly'] = 'Zobraziť obrázky v náhodnom poradí';
 
 $lang['sk_SK']['Skitter']['InternalLink'] = 'Interný odkaz';

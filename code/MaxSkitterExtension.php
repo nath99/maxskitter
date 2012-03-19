@@ -18,13 +18,16 @@ class MaxSkitterExtension extends Extension {
 	private static $cachedSlides = false;
 	private static $hasCachedSlides = false;
 	
+	/*
+	 *  is slides available, init all JS/css dependencies
+	 */
 	public function onAfterInit() {
 		if ($this->owner->SkitterSlidesRecursive()) {
 			Requirements::themedCSS("skitter.styles");
 			Requirements::themedCSS("skitter.custom");
 		   
 		   	$JS = array(
-		   		"maxskitter/javascript/jquery-1.5.2.min.js",
+		   		"maxskitter/javascript/jquery-1.6.3.min.js",
 	        	"maxskitter/javascript/jquery.skitter.min.js",
 	        	"maxskitter/javascript/jquery.easing.1.3.js",
 	        	"maxskitter/javascript/jquery.animate-colors-min.js"
@@ -43,6 +46,9 @@ class MaxSkitterExtension extends Extension {
 		}
 	}
 	
+	/*
+	 * return Slides, if recursive enabled, try to get parent's slides if not available on current page
+	 * */
 	 public function SkitterSlidesRecursive() {
 	 	if (self::$hasCachedSlides) return self::$cachedSlides;
 		
@@ -68,17 +74,28 @@ class MaxSkitterExtension extends Extension {
    }
    
    	public function get_skitter_config() {
+   		// Load static config
    		$staticConfig = MaxSkitterDefaults::get_staticConfig();
-		$siteConfig = SiteConfig::current_site_config();;
+		// Load SiteConfig
+		$siteConfig = SiteConfig::current_site_config();
+		
+		// init final config
 		$skitterConfig = array();
-		foreach (MaxSkitterDefaults::get_dbFields()  as $key => $value) {
-			if (!empty($this->owner->$key) || !empty($siteConfig->$key) || isset($staticConfig[$key])) {
-				if (!empty($this->owner->$key)) {
-					$config = $this->owner->$key;
+		
+		// loop for all config fields
+		foreach (MaxSkitterDefaults::get_skitterConfigFields()  as $key => $value) {
+			
+			// Db fields are prefixed
+			$prefixed_key = MaxSkitterDefaults::$dbFieldsPrefix.$key;
+			
+			// isset any config for each field
+			if (!empty($this->owner->$prefixed_key) || !empty($siteConfig->$prefixed_key) || isset($staticConfig[$key])) {
+				if (!empty($this->owner->$prefixed_key)) {
+					$config = $this->owner->$prefixed_key;
 					$place = "Page";
 				} else {
-					if (!empty($siteConfig->$key)) {
-						$config = $siteConfig->$key;
+					if (!empty($siteConfig->$prefixed_key)) {
+						$config = $siteConfig->$prefixed_key;
 						$place = "SiteConfig";
 					} else {
 						$config = $staticConfig[$key];
@@ -87,6 +104,7 @@ class MaxSkitterExtension extends Extension {
 				}
 				$skitterConfig[$key] = array(
 					'config' => $config,
+					'type' => $value,
 					'place' => $place
 				);
 			}
@@ -98,12 +116,27 @@ class MaxSkitterExtension extends Extension {
 		return $skitterConfig;
 	}
 	
+	/*
+	 * return skitter config - JS
+	 */
 	public function get_skitter_config_for_js() {
 		$array = array();
 		foreach ($this->owner->get_skitter_config() as $key => $value) {
-			$array[] = $key.":".$value["config"];
+			switch ($value['type']) {
+				case "Boolean":
+						if ($value['config'] == "yes") $c = "true";
+						if ($value['config'] == "no") $c = "false";
+					break;
+				case "ShortTextRaw":
+				case "LongTextRaw":
+					$c = $value['config'];
+					break;
+				default:
+					$c = "'".$value['config']."'";	
+			}
+			$array[] = $key.":".$c;
 		}
-		return implode(",",$array);
+		return implode(",\n",$array);
 	}
 	
 }
