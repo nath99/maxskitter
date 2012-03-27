@@ -102,6 +102,7 @@ class MaxSkitterExtension extends Extension {
 						$place = "_config";
 					}
 				}
+				if (is_array($value)) {$value = "Array";}
 				$skitterConfig[$key] = array(
 					'config' => $config,
 					'type' => $value,
@@ -124,8 +125,13 @@ class MaxSkitterExtension extends Extension {
 		foreach ($this->owner->get_skitter_config() as $key => $value) {
 			switch ($value['type']) {
 				case "Boolean":
-						if ($value['config'] == "yes") $c = "true";
-						if ($value['config'] == "no") $c = "false";
+						if ($value['config'] == "yes") {
+							$c = "true";
+						} elseif ($value['config'] == "no") {
+							$c = "false";
+						} else {
+							$c = $value['config'];
+						}
 					break;
 				case "ShortTextRaw":
 				case "LongTextRaw":
