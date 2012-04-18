@@ -25,7 +25,7 @@ class MaxSkitterImageDecorator extends DataObjectDecorator {
 	}
 	
 	function SkitterSlide() {
-		return $this->owner->getFormattedImage('SkitterSlide');
+		return ($this->owner->Width == self::$SkitterSlideWidth && $this->owner->Height == self::$SkitterSlideHeight) ? $this->owner : $this->owner->getFormattedImage('SkitterSlide');
 	}	
 	
 }
