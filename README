@@ -1,6 +1,6 @@
 **MaxSkitter** is SilverStripe module for slides management and presentation with jQuery skitter plugin.
 
-**Skitter** is full-featured jQuery Slideshow plugin with beautifull transitions. Is highly configurable and has good performance. Skitter website is here: [[http://www.thiagosf.net/projects/jquery/skitter/]], github sources here: [[https://github.com/thiagosf/SkitterSlideshow]]
+**Skitter** is full-featured jQuery Slideshow plugin with beautifull transitions. Is highly configurable and has good performance. Skitter website is here: http://www.thiagosf.net/projects/jquery/skitter/, github sources here: https://github.com/thiagosf/SkitterSlideshow
 
 This module makes Skitter working with your SilverStripe installation. 
 
