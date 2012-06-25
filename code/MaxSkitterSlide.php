@@ -26,16 +26,20 @@ class MaxSkitterSlide extends DataObject
 	
 	public function getCMSFields_forPopup()
 	{
+		$fields = new FieldSet();
+		
 		$internalLink = new SimpleTreeDropdownField("InternalLinkID", _t("Skitter.InternalLink","Internal Link"), "SiteTree");
    		$internalLink->setEmptyString(_t("Skitter.InternalLinkSelect","-- select Internal Link --")); 
 		
-		return new FieldSet(
-			new TextField('Label', _t("Skitter.Label","Label")),
-			MaxSkitterDefaults::get_array_dropdown("animation"),
-			new TextField('ExternalLink', _t("Skitter.ExternalLink","External Link")),
-			$internalLink,
-			new FileIFrameField('MaxSkitterImage')
-		);
+		$fields->push(new TextField('Label', _t("Skitter.Label","Label")));
+		$fields->push(MaxSkitterDefaults::get_array_dropdown("animation"));
+		$fields->push(new TextField('ExternalLink', _t("Skitter.ExternalLink","External Link")));
+		$fields->push($internalLink);
+		$fields->push(new FileIFrameField('MaxSkitterImage'));
+		
+		$this->extend('updateCMSFields', $fields); 
+
+		return $fields;
 	}
 	
    /**
