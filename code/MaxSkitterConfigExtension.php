@@ -17,8 +17,14 @@ class MaxSkitterConfigExtension extends DataExtension {
         parent::add_to_class($class, $extensionClass, $args);
     } 
 	
+	function updateCMSFields(FieldList $fields) {		
+		if ($this->ownerBaseClass == "SiteConfig") {
+			$fields->addFieldsToTab("Root.SkitterGlobalConfig",MaxSkitterDefaults::get_skitterCMSFields());
+		}
+	}
+	
 	function updateSettingsFields(FieldList $fields) {			
-			$fields->addFieldsToTab("Root.SkitterConfig",MaxSkitterDefaults::get_skitterCMSFields());
+			$fields->addFieldsToTab("Root.SkitterPageConfig",MaxSkitterDefaults::get_skitterCMSFields());
 	}
 	
 }
