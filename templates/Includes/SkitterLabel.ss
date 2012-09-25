@@ -1,3 +1,5 @@
+<% if slideLabel %>
 <div class="label_text">
-	<p>$Label</p>
+	<p>$slideLabel</p>
 </div> 
+<% end_if %>

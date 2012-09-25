@@ -80,7 +80,7 @@ class MaxSkitterDefaults {
 	
 	public static $dbFieldsPrefix = "maxskitter_";
 	
-	public function get_skitterDbFields() {
+	public static function get_skitterDbFields() {
 		foreach (self::$skitterConfigFields as $key => $value) {
 			
 			switch ($value) {
@@ -101,23 +101,23 @@ class MaxSkitterDefaults {
 		return $dbFields;
 	}
 	
-	public function set_skitterConfigFields($array) {
+	public static function set_skitterConfigFields($array) {
 		self::$skitterConfigFields = $array;
 	}
 	
-	public function get_skitterConfigFields() {
+	public static function get_skitterConfigFields() {
 		return self::$skitterConfigFields;
 	}
 	
-	public function set_animations($array) {
+	public static function set_animations($array) {
 		self::$skitterConfigFields['animation'] = $array;
 	}
 	
-	public function get_animations() {
+	public static function get_animations() {
 		return self::$skitterConfigFields['animation'];
 	}
 
-	public function get_skitterCMSFields() {
+	public static function get_skitterCMSFields() {
 		foreach (self::$skitterConfigFields as $key => $value) {
 			
 			switch ($value) {
@@ -144,7 +144,7 @@ class MaxSkitterDefaults {
 		return $CMSFields;
 	}
 	
-	public function get_array_dropdown($field) {
+	public static function get_array_dropdown($field) {
 				$options = self::$skitterConfigFields[$field];
 				foreach ($options as $key => $value) {
 					$new_key = $value;
@@ -155,7 +155,7 @@ class MaxSkitterDefaults {
 				return $dd;
 	}
 	
-		public function get_boolean_dropdown($field) {
+	public static function get_boolean_dropdown($field) {
 				$options = array('yes','no');
 				foreach ($options as $key => $value) {
 					$new_key = $value;
@@ -168,11 +168,11 @@ class MaxSkitterDefaults {
 	
 	private static $staticConfig = array();
 	
-	public function set_staticConfig($array) {
+	public static function set_staticConfig($array) {
 		self::$staticConfig = $array;
 	}
 	
-	public function get_staticConfig() {
+	public static function get_staticConfig() {
 		return self::$staticConfig;
 	}
 	

@@ -14,7 +14,7 @@
  * @author Pali Ondras
  */
 
-class MaxSkitterImageDecorator extends DataObjectDecorator {
+class MaxSkitterImageDecorator extends DataExtension {
 	
 	public static $SkitterSlideWidth = 800;
 	

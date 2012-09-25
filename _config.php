@@ -11,14 +11,14 @@
 // Default decorators and extensions, for more info check corresponding files stored in maxskitter/code folder
 DataObject::add_extension("Page", "MaxSkitterDecorator");
 Object::add_extension("Page_Controller", "MaxSkitterExtension");
-DataObject::add_extension("Page", "MaxSkitterPageConfigDecorator");
-DataObject::add_extension("SiteConfig", "MaxSkitterSiteConfigDecorator");
+DataObject::add_extension("Page", "MaxSkitterConfigExtension");
+DataObject::add_extension("SiteConfig", "MaxSkitterConfigExtension");
 
 // Creating croppedResize slide image
 Object::add_extension("Image", "MaxSkitterImageDecorator");
 
 // Per page specific drag & drop for sorting slides
-SortableDataObject::add_sortable_many_many_relation('Page','MaxSkitterSlides');
+//SortableDataObject::add_sortable_many_many_relation('Page','MaxSkitterSlides');
 
 /** Skitter Configuration Example (mysite/_config.php) **/
 //MaxSkitterDefaults::$debugSkitter = true;

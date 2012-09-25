@@ -11,6 +11,7 @@
 class MaxSkitterSlide extends DataObject
 {
 	static $db = array (
+		'Name' => 'Varchar(64)',
 		'Label' => 'Text',
 		'animation' => 'Varchar(32)',
 		'ExternalLink' => 'Varchar(2083)',
@@ -24,39 +25,24 @@ class MaxSkitterSlide extends DataObject
 	
 	static $belongs_many_many = array('Page'=>'Page');
 	
-	public function getCMSFields_forPopup()
+	public function getCMSFields()
 	{
-		$fields = new FieldSet();
+		$fields = new FieldList();
 		
-		$internalLink = new SimpleTreeDropdownField("InternalLinkID", _t("Skitter.InternalLink","Internal Link"), "SiteTree");
-   		$internalLink->setEmptyString(_t("Skitter.InternalLinkSelect","-- select Internal Link --")); 
+		$internalLink = new TreeDropdownField("InternalLinkID", _t("Skitter.InternalLink","Internal Link"), "SiteTree");
 		
+		$fields->push(new TextField('Name', _t("Skitter.Name","Name (internal name, not shown in public site)")));
 		$fields->push(new TextField('Label', _t("Skitter.Label","Label")));
 		$fields->push(MaxSkitterDefaults::get_array_dropdown("animation"));
 		$fields->push(new TextField('ExternalLink', _t("Skitter.ExternalLink","External Link")));
 		$fields->push($internalLink);
-		$fields->push(new FileIFrameField('MaxSkitterImage'));
+		$fields->push(new UploadField('MaxSkitterImage'));
 		
 		$this->extend('updateCMSFields', $fields); 
 
 		return $fields;
 	}
-	
-   /**
-    * Add newly created items to the parent
-    */
-   function onAfterWrite() {
-      $relatedClass = 'Page';
-      if ( array_key_exists('ctf[parentClass]', $this->record) && $this->record['ctf[parentClass]'] == $relatedClass ) {
-        $components = $this->getManyManyComponents($relatedClass);
-    	if ( ! in_array((int)$this->record['ctf[sourceID]'], $components->getIdList()) ) {
-        	$components->add((int)$this->record['ctf[sourceID]']);
-			$components->write();
-        }
-     }
-     parent::onAfterWrite();
-   } 
-	
+		
 	function onBeforeWrite() {
 		parent::onBeforeWrite();
 		// Prefix the URL with "http://" if no prefix is found
@@ -71,14 +57,13 @@ class MaxSkitterSlide extends DataObject
 	
 	function Link() {
 		// TODO -> InternaLink + anchor Title
-		if ($this->owner->ExternalLink) return $this->owner->ExternalLink;
-		if ($this->owner->InternalLinkID) return $this->owner->InternalLink()->Link();
+		if ($this->ExternalLink) return $this->ExternalLink;
+		if ($this->InternalLinkID) return $this->InternalLink()->Link();
 		return "#";
 	}
 	
-	function Title() {
-		if ($this->owner->Label) return Convert::raw2htmlatt($this->owner->Label);
-		if ($this->owner->InternalLinkID) return $this->owner->InternalLink()->Title;
+	function slideLabel() {
+		return ($this->Label) ? Convert::raw2htmlatt($this->Label) : false;
 	}
 	
 }

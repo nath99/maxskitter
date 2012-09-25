@@ -7,57 +7,20 @@
  * @author Pali Ondras
  */
 
-class MaxSkitterDecorator extends DataObjectDecorator {
+class MaxSkitterDecorator extends DataExtension {
 	
-	function extraStatics() {
-		return array(
-			'db' => array(
-				'notRecursive' => 'Boolean'
-			),
-			'many_many' => array('MaxSkitterSlides'=>'MaxSkitterSlide')
-		);
+	static $db = array('notRecursive' => 'Boolean');
+	
+	static $many_many = array('MaxSkitterSlides'=>'MaxSkitterSlide');
+	
+	function updateCMSFields(FieldList $fields) {	
+		$slides = new GridField('maxSkitterSlides', 'Skitter slides', $this->owner->MaxSkitterSlides(), GridFieldConfig_RelationEditor::create()->addComponents(new GridFieldDeleteAction(true)));
+		
+		$fields->addFieldToTab("Root.SkitterSlides", $slides);
 	}
 	
-	function updateCMSFields(&$fields) {
-		$fields->addFieldToTab("Root.Content.SkitterSlides", new CheckboxField("notRecursive",_t("Skitter.notRecursive","Do not grab slides from parent page!")));
-				
-        $slides = new ManyManyFileDataObjectManager(
-			$this->owner, // Controller
-			'MaxSkitterSlides', // Source name
-			'MaxSkitterSlide', // Source class
-			'MaxSkitterImage', // File name on DataObject
-			array(
-				'Label' => _t("Skitter.Label","Label")
-			), // Headings 
-			'getCMSFields_forPopup' // Detail fields (function name or FieldSet object)
-			// Filter clause
-			// Sort clause
-			// Join clause
-		);
-		$slides->setParentClass("Page");
-		$slides->setSourceID($this->owner->ID);
-		$slides->setOnlyRelated(true);
-		$fields->addFieldToTab("Root.Content.SkitterSlides", $slides);
+	function updateSettingsFields(FieldList $fields) {
+		$fields->addFieldToTab("Root.SkitterConfig", new CheckboxField("notRecursive",_t("Skitter.notRecursive","Do not grab slides from parent page!")));
 	}
-	
-   public function getSkitterSlidesRecursive() {
-   		$page = $this->owner;
-   		$slides = $this->owner->MaxSkitterSlides();
-   		while (!$slides->exists() && $page->ParentID != 0 && !$page->notRecursive) {
-   			$page = $page->Parent();
-   			$slides = $page->MaxSkitterSlides();
-   		} 
-   		
-   		if ($slides->exists()) {
-   			$data = new ArrayData(
-	   			array(
-		   			"SkitterSlides" => $slides
-		   		)
-		   	);
-			return $data->renderWith('Skitter');
-   		} else {
-   			return false;
-   		}
-   }
 	
 }

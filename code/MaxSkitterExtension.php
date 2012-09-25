@@ -23,8 +23,8 @@ class MaxSkitterExtension extends Extension {
 	 */
 	public function onAfterInit() {
 		if ($this->owner->SkitterSlidesRecursive()) {
-			Requirements::themedCSS("skitter.styles");
-			Requirements::themedCSS("skitter.custom");
+			Requirements::themedCSS("skitter.styles","maxskitter");
+			Requirements::themedCSS("skitter.custom","maxskitter");
 		   
 		   	$JS = array(
 		   		"maxskitter/javascript/jquery-1.6.3.min.js",
@@ -49,7 +49,7 @@ class MaxSkitterExtension extends Extension {
 	/*
 	 * return Slides, if recursive enabled, try to get parent's slides if not available on current page
 	 * */
-	 public function SkitterSlidesRecursive() {
+	 public function SkitterSlidesRecursive() {		
 	 	if (self::$hasCachedSlides) return self::$cachedSlides;
 		
    		$page = $this->owner;
