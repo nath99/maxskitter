@@ -22,7 +22,12 @@ class MaxSkitterDecorator extends DataExtension {
 	function updateCMSFields(FieldList $fields) {	
 		
 		 $fields->addFieldToTab('Root.SkitterSlides', $grid=new GridField('MaxSkitterSlides', 'Skitter slides', $this->owner->MaxSkitterSlides(), GridFieldConfig_RelationEditor::create(10)));
-        $grid->getConfig()->addComponent(new GridFieldSortableRows('SortOrder'));
+
+        	if (class_exists("GridFieldSortableRows")) {
+        		$grid->getConfig()->addComponent(new GridFieldSortableRows('SortOrder'));
+		} 
+	
+}
 		
 	}
 	
