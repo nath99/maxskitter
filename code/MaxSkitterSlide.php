@@ -69,7 +69,7 @@ class MaxSkitterSlide extends DataObject
 		if($this->ExternalLink && (strpos($this->ExternalLink, '://') === false)) {
 			$this->ExternalLink = 'http://' . $this->ExternalLink;
 		}
-		if ($_POST["forceToEmpty"]) {
+		if (isset($_POST["forceToEmpty"]) && $_POST["forceToEmpty"]) {
 			$this->InternalLinkID = 0;
 		}
 		
