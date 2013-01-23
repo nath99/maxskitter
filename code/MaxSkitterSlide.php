@@ -36,12 +36,32 @@ class MaxSkitterSlide extends DataObject
 		$fields->push(MaxSkitterDefaults::get_array_dropdown("animation"));
 		$fields->push(new TextField('ExternalLink', _t("Skitter.ExternalLink","External Link")));
 		$fields->push($internalLink);
+		
+		if ($this->InternalLinkID > 0) {
+			$fields->push(new CheckboxField("forceToEmpty","Remove internal LinkTo", false) );
+		}
+		
 		$fields->push(new UploadField('MaxSkitterImage'));
 		
 		$this->extend('updateCMSFields', $fields); 
 
 		return $fields;
 	}
+	
+// Tell the datagrid what fields to show in the table
+   public static $summary_fields = array( 
+	   'Name' => 'Name',
+/*	   'Description'=>'Description',*/
+	   'Label' => 'Label',
+	   'InternalLink.MenuTitle' => 'Internal LinkTo page',
+	   'ExternalLink' => 'ExternalLink',
+	   'Thumbnail' => 'Image'     
+   );
+  
+  // this function creates the thumnail for the summary fields to use
+   public function getThumbnail() { 
+     return $this->MaxSkitterImage()->CMSThumbnail();
+  }
 		
 	function onBeforeWrite() {
 		parent::onBeforeWrite();
@@ -49,6 +69,10 @@ class MaxSkitterSlide extends DataObject
 		if($this->ExternalLink && (strpos($this->ExternalLink, '://') === false)) {
 			$this->ExternalLink = 'http://' . $this->ExternalLink;
 		}
+		if ($_POST["forceToEmpty"]) {
+			$this->InternalLinkID = 0;
+		}
+		
 	}
 	
 	function animationClass() {

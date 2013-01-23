@@ -13,14 +13,25 @@ class MaxSkitterDecorator extends DataExtension {
 	
 	static $many_many = array('MaxSkitterSlides'=>'MaxSkitterSlide');
 	
+	public static $many_many_extraFields=array(
+    	'MaxSkitterSlides'=>array(
+        	'SortOrder'=>'Int'
+        )
+	);
+	
 	function updateCMSFields(FieldList $fields) {	
-		$slides = new GridField('maxSkitterSlides', 'Skitter slides', $this->owner->MaxSkitterSlides(), GridFieldConfig_RelationEditor::create()->addComponents(new GridFieldDeleteAction(true)));
 		
-		$fields->addFieldToTab("Root.SkitterSlides", $slides);
+		 $fields->addFieldToTab('Root.SkitterSlides', $grid=new GridField('MaxSkitterSlides', 'Skitter slides', $this->owner->MaxSkitterSlides(), GridFieldConfig_RelationEditor::create(10)));
+        $grid->getConfig()->addComponent(new GridFieldSortableRows('SortOrder'));
+		
 	}
 	
 	function updateSettingsFields(FieldList $fields) {
 		$fields->addFieldToTab("Root.SkitterConfig", new CheckboxField("notRecursive",_t("Skitter.notRecursive","Do not grab slides from parent page!")));
 	}
+	
+	public function MaxSkitterSlides() {
+        return $this->owner->getManyManyComponents('MaxSkitterSlides')->sort('SortOrder');
+    }
 	
 }
