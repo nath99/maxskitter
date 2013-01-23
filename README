@@ -17,7 +17,7 @@ SS 2.4:
     dataobject_manager
     uploadify
 SS 3.0:
-    no other dependencies
+    sortablegridfield (optional)
 
 ## Installation
 
