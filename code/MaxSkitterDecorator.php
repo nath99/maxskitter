@@ -33,7 +33,7 @@ class MaxSkitterDecorator extends DataExtension {
 		$fields->addFieldToTab("Root.SkitterConfig", new CheckboxField("notRecursive",_t("Skitter.notRecursive","Do not grab slides from parent page!")));
 	}
 	
-	public function MaxSkitterSlides() {
+	public function OrderedSkitterSlides() {
         return $this->owner->getManyManyComponents('MaxSkitterSlides')->sort('SortOrder');
     }
 	
