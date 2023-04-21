@@ -1,7 +1,12 @@
 <?php
+
+namespace SilverMax\MaxSkitter\Model;
+
+use SilverStripe\ORM\DataExtension;
+
 /**
  * Defines MaxSkitter image resize options, if you dont like used cropped resize, use your own copy of this file
- * (with custom name of class and methods), enable it in your mysite/_config.php and copy 
+ * (with custom name of class and methods), enable it in your mysite/_config.php and copy
  * maxskitter/templates/Includes/SkitterImage.ss in your theme and change called image resizing method name.
  * If you are fine with cropped resizing, you can configure dimension in you mysite/_config.php. Example:
  * <code>
@@ -15,18 +20,18 @@
  */
 
 class MaxSkitterImageDecorator extends DataExtension {
-	
+
 	public static $SkitterSlideWidth = 800;
-	
+
 	public static $SkitterSlideHeight = 300;
-	
+
 	function generateSkitterSlide($gd) {
 		return $gd->croppedResize(self::$SkitterSlideWidth,self::$SkitterSlideHeight);
 	}
-	
+
 	function SkitterSlide() {
 		return ($this->owner->Width == self::$SkitterSlideWidth && $this->owner->Height == self::$SkitterSlideHeight) ? $this->owner : $this->owner->getFormattedImage('SkitterSlide');
-	}	
-	
+	}
+
 }
 

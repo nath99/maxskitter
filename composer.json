@@ -12,9 +12,21 @@
 	],
 	"require":
 	{
-		"silverstripe/framework": "3.*",
-		"silverstripe/cms": "3.*",
+		"silverstripe/framework": "4.*",
+		"silverstripe/cms": "4.*",
 		"composer/installers": "*",
-		"undefinedoffset/sortablegridfield": "*"
-	}
+		"undefinedoffset/sortablegridfield": "*",
+		"silverstripe/asset-admin": "^1.12"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true,
+			"silverstripe/vendor-plugin": true
+		}
+	},
+	"autoload": {
+        "psr-4": {
+            "SilverMax\\MaxSkitter\\": "src/"
+        }
+    }
 }
