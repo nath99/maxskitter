@@ -34,28 +34,23 @@ class MaxSkitterExtension extends Extension
 	public function onAfterInit()
 	{
 		if ($this->owner->SkitterSlidesRecursive()) {
-			Requirements::themedCSS("skitter.styles", "maxskitter");
-			Requirements::themedCSS("skitter.custom", "maxskitter");
+			Requirements::css('silvermax/maxskitter:css/skitter.styles.css');
+			Requirements::css('silvermax/maxskitter:css/styles.css');
 
-			$JS = array(
-				"maxskitter/javascript/jquery-1.6.3.min.js",
-				"maxskitter/javascript/jquery.skitter.min.js",
-				"maxskitter/javascript/jquery.easing.1.3.js",
-				"maxskitter/javascript/jquery.animate-colors-min.js"
-			);
-
-			foreach ($JS as $js) {
-				Requirements::javascript($js);
-			}
-			Requirements::combine_files("combined.skitter.js", $JS);
+			Requirements::combine_files("combined.skitter.js", [
+				"silvermax/maxskitter:javascript/jquery-1.6.3.min.js",
+				"silvermax/maxskitter:javascript/jquery.skitter.min.js",
+				"silvermax/maxskitter:javascript/jquery.easing.1.3.js",
+				"silvermax/maxskitter:javascript/jquery.animate-colors-min.js"
+			]);
 
 			Requirements::customScript("
 				jQuery(document).ready(function() {
-				jQuery('#skitter').skitter({
-					" . $this->owner->get_skitter_config_for_js() . "
+					jQuery('#skitter').skitter({
+						" . $this->owner->get_skitter_config_for_js() . "
+					});
 				});
-			});
-		");
+			");
 		}
 	}
 

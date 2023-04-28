@@ -10,18 +10,18 @@
  */
 (function($){
 	$.fn.highlight = function(element_params){
-		
+
 		var defaults = {
 		 	// show source code tab
 			source: true,
 			// show zebra
 			zebra: true,
-			//indents: "tabs" or "space"  
+			//indents: "tabs" or "space"
 			indent: 'tabs',
 			//ordered or unordered list
 			list: 'ol'
 		}
-		
+
 		var params = $.extend({}, defaults, element_params);
 
 		return this.each(function(){
@@ -31,48 +31,48 @@
 			var code_lang_class = '';
 			if(code_lang!='') {
 				code_lang_class = ' '+code_lang;
-			} 
+			}
 			$(code_container).wrap('<div class="highlight'+code_lang_class+'"></div>');
 			var highlight_container = $(code_container).parent();
 
 			var source = code_container.html();
 			source = source.replace(/</gm, '&lt;');
-			
+
 			//replace tabs with spaces
 			if(params.indent=='space') {
 				source = source.replace(/\t/g,'    ');
 			}
-			
+
 			var code = source;
-			
+
 			//hightlight
 			switch(code_lang) {
 				case 'html':
-					code = $.highlightCode.hightlight_html(code);	
+					code = $.highlightCode.hightlight_html(code);
 					break;
 				case 'css':
-					code = $.highlightCode.hightlight_css(code);	
+					code = $.highlightCode.hightlight_css(code);
 					break;
 				case 'php':
-					code = $.highlightCode.hightlight_php(code);	
+					code = $.highlightCode.hightlight_php(code);
 				  break;
 				default:
-					code = $.highlightCode.hightlight(code);	
+					code = $.highlightCode.hightlight(code);
 					break;
 			}
-			
+
 			code = code.replace(/(?:\r\n?|\n)$/, '');
 			code = '<'+params.list+'><li>'+code.split(/\r\n|\n/).join('\n</li><li>')+'\n</li></'+params.list+'>';
-								
+
 			//add source and tabs
 			if(params.source==true) {
 				source = '<pre class="source">'+source+'</pre>';
-				var tabs = '<ul class="tabs"><li class="code active">code</li><li class="source">source</li></ul>';				
+				var tabs = '<ul class="tabs"><li class="code active">code</li><li class="source">source</li></ul>';
 				$(code_container).after(source);
 				$(code_container).before(tabs);
 			}
-			
-			
+
+
 			//init tabs
 			if(params.source==true) {
 				var tabs = $(highlight_container).find('ul.tabs li');
@@ -85,26 +85,26 @@
 						$(tab).addClass('active');
 					});
 				});
-				
+
 			}
-			
+
 			//replace instead of html, because of IE bug
 			$(code_container).replaceWith('<pre class="'+code_class+'">'+code+'</pre>');
-			
+
 			//zebra
 			if(params.zebra==true) {
 				$(highlight_container).find('pre[class="'+code_class+'"] '+params.list+' li:even').addClass('even');
 			}
 		});
 	};
-	
+
 	$.highlightCode = {
-		
+
 		//DEFAULT
 		hightlight: function(code) {
-					
+
 			var comments		= [];	// store comments
-		
+
 			code = code
 				//replace keywords
 				.replace(/(var|function|typeof|new|return|if|for|in|while|break|do|continue|case|switch)([^a-z0-9\$_])/gi,'<span class="kwd">$1</span>$2')
@@ -123,12 +123,12 @@
 				.replace(/([a-z\_\$][a-z0-9_]*)\(/gi,'<span class="fnc">$1</span>(');
 			return code;
 		},
-		
+
 		//PHP
 		hightlight_php: function(code) {
-			
+
 			var comments		= [];	// store comments
-			
+
 			var funcs	=	'abs acos acosh addcslashes addslashes ' +
 				'array_change_key_case array_chunk array_combine array_count_values array_diff '+
 				'array_diff_assoc array_diff_key array_diff_uassoc array_diff_ukey array_fill '+
@@ -163,21 +163,21 @@
 				'stripos stripslashes stristr strlen strnatcasecmp strnatcmp strncasecmp strncmp strpbrk '+
 				'strpos strptime strrchr strrev strripos strrpos strspn strstr strtok strtolower strtotime '+
 				'strtoupper strtr strval substr substr_compare';
-	
+
 			var keywords =	'and or xor array as break case ' +
 				'cfunction const continue declare default die do else ' +
 				'elseif enddeclare endfor endforeach endif endswitch endwhile ' +
 				'extends for foreach function include include_once global if ' +
 				'new old_function return static switch use require require_once ' +
 				'while abstract interface public implements extends private protected throw';
-	
+
 	    funcs = new RegExp(get_keywords(funcs), 'gi');
 			keywords = new RegExp(get_keywords(keywords), 'gi');
-			
+
 			code = code
 				//replace strings
 				.replace(/(".*?")/g,'<span class="str">$1</span>')
-				.replace(/('.*?')/g,'<span class="str">$1</span>')	
+				.replace(/('.*?')/g,'<span class="str">$1</span>')
 				//replace multiline comments
 				.replace(/\/\*([\s\S]*?)\*\//g, function(m, t)
 					{ return '\0C'+push(comments, multiline_comments(m))+'\0'; })
@@ -193,12 +193,12 @@
 				.replace(keywords,'<span class="kwd">$1</span>$2');
 			return code;
 		},
-		
+
 		//CSS
 		hightlight_css: function(code) {
-			
+
 			var comments		= [];	// store comments
-			
+
 			var keywords =	'background-color background-image background-position ' +
 				'background-repeat background border-collapse border-color border-spacing border-style border-top ' +
 				'border-right border-bottom border-left border-top-color border-right-color border-bottom-color border-left-color ' +
@@ -210,7 +210,7 @@
 				'outline-color outline-style outline-width outline overflow padding-top padding-right padding-bottom padding-left padding position' +
 				'quotes right size src table-layout text-align top text-decoration text-indent text-shadow text-transform ' +
 				'vertical-align visibility white-space width word-spacing x-height z-index position -moz-border-radius -webkit-border-radius border-radius opacity';
-		
+
 			var values =	'absolute all attr auto baseline behind below black blink block blue bold bolder '+
 				'both bottom capitalize caption center center-left center-right circle close-quote collapse compact '+
 				'continuous cursive dashed decimal default digits disc dotted double embed expanded fixed format '+
@@ -222,19 +222,19 @@
 				'table-caption table-cell table-column table-column-group table-footer-group table-header-group table-row table-row-group '+
 				'text-bottom text-top thick thin top transparent underline upper-alpha uppercase upper-latin '+
 				'upper-roman url visible wait white wider w-resize x-fast x-high x-large x-low x-small x-soft yellow';
-			
+
 			var fonts =		'[mM]onospace [tT]ahoma [vV]erdana [aA]rial [hH]elvetica [sS]ans-serif [sS]erif [cC]ourier New mono sans serif';
-			
+
 			keywords = new RegExp(get_keywords(keywords), 'gi');
 			values = new RegExp(get_keywords(values), 'gi');
-			fonts = new RegExp(get_keywords(fonts), 'gi'); 
-			
+			fonts = new RegExp(get_keywords(fonts), 'gi');
+
 			code = code
 				//replace comments
 				.replace(/\/\*([\s\S]*?)\*\//g, function(m, t)
 					{ return '\0C'+push(comments, multiline_comments(m))+'\0'; })
 				.replace(/\0C(\d+)\0/g, function(m, i)
-					{ return comments[i]; })		
+					{ return comments[i]; })
 				//replace keywords
 				.replace(keywords,'<span class="kwd">$1</span>$2')
 				//replace values
@@ -247,10 +247,10 @@
 				.replace(/(-?\d+)(\.\d+)?(px|em|pt|\:|\%|)/gi,'<span class="lit">$1$3</span>');
 			return code;
 		},
-		
+
 		//HTML
 		hightlight_html: function(code) {
-			
+
 			code = code
 				//replace attributes
 				.replace(/\s+([a-zA-Z\-]{0,15})\=\"([-a-z0-9_ \/\.\#\:\=\;]{0,49})\"/gi,' <span class="atn">$1</span>=<span class="atv">"$2"</span>')
@@ -259,24 +259,24 @@
 				//replace close tags
 				.replace(/(&lt;)\/(\w{0,15})(&gt;|>)/gi,'$1/<span class="tag">$2</span>$3')
 				//replace doctype
-				.replace(/(&lt;!)([-a-z0-9_ \/\.\#\:\"]{0,150})(&gt;|>)/gi,'<span class="dec">$1$2$3</span>')		
+				.replace(/(&lt;!)([-a-z0-9_ \/\.\#\:\"]{0,150})(&gt;|>)/gi,'<span class="dec">$1$2$3</span>')
 				//replace comments
 				.replace(/(&lt;|<)!--([\s\S]*?)--(&gt;|>)/gm,'<span class="com">$1!--$2--$3</span>');
-				
+
 			return code;
 		}
 	};
-	
+
 	/*
 	* helpers
 	*/
-	
+
 	//prepare regexp template for keywords
 	function get_keywords(str)
 	{
 		return '(' + str.replace(/ /g, '|') + ')([^a-z0-9\$_])';
 	}
-	
+
 	//process multiline comments
 	function multiline_comments(text)
 	{
@@ -286,12 +286,12 @@
 		}
 		return text.join('\n');
 	}
-	
+
 	//add element, return index
 	function push(array, element)
 	{
 		array.push(element);
 		return array.length-1;
-	}	
-	
+	}
+
 })(jQuery);

@@ -29,5 +29,12 @@
         "psr-4": {
             "SilverMax\\MaxSkitter\\": "src/"
         }
-    }
+    },
+	"extra": {
+		"expose": [
+			"css",
+			"images",
+			"javascript"
+		]
+	}
 }
