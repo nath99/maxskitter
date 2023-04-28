@@ -1,7 +1,7 @@
 {
 	"name": "silvermax/maxskitter",
 	"description": "MaxSkitter is SilverStripe module for slides management and presentation with jQuery skitter plugin.",
-	"type": "silverstripe-module",
+	"type": "silverstripe-vendormodule",
 	"license": "BSD-3-Clause",
 	"keywords": ["silverstripe", "maxskitter", "carousel", "jquery", "skitter"],
 	"authors": [
@@ -16,7 +16,8 @@
 		"silverstripe/cms": "4.*",
 		"composer/installers": "*",
 		"undefinedoffset/sortablegridfield": "*",
-		"silverstripe/asset-admin": "^1.12"
+		"silverstripe/asset-admin": "^1.12",
+		"silverstripe/vendor-plugin": "^1.6"
 	},
 	"config": {
 		"allow-plugins": {
