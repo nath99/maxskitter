@@ -22,7 +22,7 @@ use SilverStripe\Core\Convert;
 
 class MaxSkitterSlide extends DataObject
 {
-	static $db = array (
+	private static $db = array(
 		'Name' => 'Varchar(64)',
 		'Label' => 'Text',
 		'animation' => 'Varchar(32)',
@@ -30,27 +30,37 @@ class MaxSkitterSlide extends DataObject
 		'animation' => 'Varchar(32)'
 	);
 
-	static $has_one = array (
+	private static $has_one = array(
 		'MaxSkitterImage' => 'Image',
 		"InternalLink" => "SiteTree"
 	);
 
-	static $belongs_many_many = array('Page'=>'Page');
+	private static $belongs_many_many = array('Page' => 'Page');
+
+	// Tell the datagrid what fields to show in the table
+	private static $summary_fields = array(
+		'Name' => 'Name',
+		/*	   'Description'=>'Description',*/
+		'Label' => 'Label',
+		'InternalLink.MenuTitle' => 'Internal LinkTo page',
+		'ExternalLink' => 'ExternalLink',
+		'Thumbnail' => 'Image'
+	);
 
 	public function getCMSFields()
 	{
 		$fields = new FieldList();
 
-		$internalLink = new TreeDropdownField("InternalLinkID", _t("Skitter.InternalLink","Internal Link"), "SiteTree");
+		$internalLink = new TreeDropdownField("InternalLinkID", _t("Skitter.InternalLink", "Internal Link"), "SiteTree");
 
-		$fields->push(new TextField('Name', _t("Skitter.Name","Name (internal name, not shown in public site)")));
-		$fields->push(new TextField('Label', _t("Skitter.Label","Label")));
+		$fields->push(new TextField('Name', _t("Skitter.Name", "Name (internal name, not shown in public site)")));
+		$fields->push(new TextField('Label', _t("Skitter.Label", "Label")));
 		$fields->push(MaxSkitterDefaults::get_array_dropdown("animation"));
-		$fields->push(new TextField('ExternalLink', _t("Skitter.ExternalLink","External Link")));
+		$fields->push(new TextField('ExternalLink', _t("Skitter.ExternalLink", "External Link")));
 		$fields->push($internalLink);
 
 		if ($this->InternalLinkID > 0) {
-			$fields->push(new CheckboxField("forceToEmpty","Remove internal LinkTo", false) );
+			$fields->push(new CheckboxField("forceToEmpty", "Remove internal LinkTo", false));
 		}
 
 		$fields->push(new UploadField('MaxSkitterImage'));
@@ -60,46 +70,43 @@ class MaxSkitterSlide extends DataObject
 		return $fields;
 	}
 
-// Tell the datagrid what fields to show in the table
-   public static $summary_fields = array(
-	   'Name' => 'Name',
-/*	   'Description'=>'Description',*/
-	   'Label' => 'Label',
-	   'InternalLink.MenuTitle' => 'Internal LinkTo page',
-	   'ExternalLink' => 'ExternalLink',
-	   'Thumbnail' => 'Image'
-   );
+	// this function creates the thumnail for the summary fields to use
+	public function getThumbnail()
+	{
+		return $this->MaxSkitterImage()->CMSThumbnail();
+	}
 
-  // this function creates the thumnail for the summary fields to use
-   public function getThumbnail() {
-     return $this->MaxSkitterImage()->CMSThumbnail();
-  }
-
-	function onBeforeWrite() {
+	function onBeforeWrite()
+	{
 		parent::onBeforeWrite();
 		// Prefix the URL with "http://" if no prefix is found
-		if($this->ExternalLink && (strpos($this->ExternalLink, '://') === false)) {
+		if ($this->ExternalLink && (strpos($this->ExternalLink, '://') === false)) {
 			$this->ExternalLink = 'http://' . $this->ExternalLink;
 		}
 		if (isset($_POST["forceToEmpty"]) && $_POST["forceToEmpty"]) {
 			$this->InternalLinkID = 0;
 		}
-
 	}
 
-	function animationClass() {
-		return ($this->animation) ? trim($this->animation,"'") : "notSpecified";
+	function animationClass()
+	{
+		return ($this->animation) ? trim($this->animation, "'") : "notSpecified";
 	}
 
-	function Link() {
+	function Link()
+	{
 		// TODO -> InternaLink + anchor Title
-		if ($this->ExternalLink) return $this->ExternalLink;
-		if ($this->InternalLinkID) return $this->InternalLink()->Link();
+		if ($this->ExternalLink) {
+			return $this->ExternalLink;
+		}
+		if ($this->InternalLinkID) {
+			return $this->InternalLink()->Link();
+		}
 		return "#";
 	}
 
-	function slideLabel() {
+	function slideLabel()
+	{
 		return ($this->Label) ? Convert::raw2htmlatt($this->Label) : false;
 	}
-
 }

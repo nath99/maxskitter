@@ -20,11 +20,11 @@ use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
 class MaxSkitterDecorator extends DataExtension
 {
 
-	static $db = array('notRecursive' => 'Boolean');
+	private static $db = array('notRecursive' => 'Boolean');
 
-	static $many_many = array('MaxSkitterSlides' => 'MaxSkitterSlide');
+	private static $many_many = array('MaxSkitterSlides' => 'MaxSkitterSlide');
 
-	public static $many_many_extraFields = array(
+	private static $many_many_extraFields = array(
 		'MaxSkitterSlides' => array(
 			'SortOrder' => 'Int'
 		)

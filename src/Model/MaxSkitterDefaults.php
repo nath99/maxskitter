@@ -87,6 +87,8 @@ class MaxSkitterDefaults
 
 	public static $dbFieldsPrefix = "maxskitter_";
 
+	private static $staticConfig = array();
+
 	public static function get_skitterDbFields()
 	{
 		foreach (self::$skitterConfigFields as $key => $value) {
@@ -180,8 +182,6 @@ class MaxSkitterDefaults
 		$dd->setEmptyString(_t("Skitter.optionDefault", "-- Default --"));
 		return $dd;
 	}
-
-	private static $staticConfig = array();
 
 	public static function set_staticConfig($array)
 	{
