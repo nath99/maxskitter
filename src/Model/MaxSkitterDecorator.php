@@ -20,9 +20,13 @@ use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
 class MaxSkitterDecorator extends DataExtension
 {
 
-	private static $db = array('notRecursive' => 'Boolean');
+	private static $db = array(
+		'notRecursive' => 'Boolean'
+	);
 
-	private static $many_many = array('MaxSkitterSlides' => 'MaxSkitterSlide');
+	private static $many_many = array(
+		'MaxSkitterSlides' => MaxSkitterSlide::class
+	);
 
 	private static $many_many_extraFields = array(
 		'MaxSkitterSlides' => array(
@@ -33,7 +37,15 @@ class MaxSkitterDecorator extends DataExtension
 	function updateCMSFields(FieldList $fields)
 	{
 
-		$fields->addFieldToTab('Root.SkitterSlides', $grid = new GridField('MaxSkitterSlides', 'Skitter slides', $this->owner->MaxSkitterSlides(), GridFieldConfig_RelationEditor::create(10)));
+		$fields->addFieldToTab(
+			'Root.SkitterSlides',
+			$grid = new GridField(
+				'MaxSkitterSlides',
+				'Skitter slides',
+				$this->owner->MaxSkitterSlides(),
+				GridFieldConfig_RelationEditor::create(10)
+			)
+		);
 
 		if (class_exists("GridFieldSortableRows")) {
 			$grid->getConfig()->addComponent(new GridFieldSortableRows('SortOrder'));
@@ -42,7 +54,10 @@ class MaxSkitterDecorator extends DataExtension
 
 	function updateSettingsFields(FieldList $fields)
 	{
-		$fields->addFieldToTab("Root.SkitterConfig", new CheckboxField("notRecursive", _t("Skitter.notRecursive", "Do not grab slides from parent page!")));
+		$fields->addFieldToTab(
+			"Root.SkitterConfig",
+			new CheckboxField("notRecursive", _t("Skitter.notRecursive", "Do not grab slides from parent page!"))
+		);
 	}
 
 	public function OrderedSkitterSlides()

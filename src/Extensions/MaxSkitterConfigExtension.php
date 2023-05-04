@@ -2,11 +2,12 @@
 
 namespace SilverMax\MaxSkitter\Extensions;
 
+use Page;
 use SilverMax\MaxSkitter\Model\MaxSkitterDefaults;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Core\Config\Config;
-
+use SilverStripe\SiteConfig\SiteConfig;
 
 /**
  * Page and Siteconfig decorator which enables page specific Skitter configuration
@@ -22,7 +23,7 @@ class MaxSkitterConfigExtension extends DataExtension
 
     public static function add_to_class($class, $extensionClass, $args = null)
     {
-        if ($class == 'Page' || $class == "SiteConfig") {
+        if ($class == Page::class || $class == SiteConfig::class) {
             Config::modify()->set($class, 'db', MaxSkitterDefaults::get_skitterDbFields());
         }
         parent::add_to_class($class, $extensionClass, $args);

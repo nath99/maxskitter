@@ -2,6 +2,7 @@
 
 namespace SilverMax\MaxSkitter\Model;
 
+use Page;
 use SilverMax\MaxSkitter\Model\MaxSkitterDefaults;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\FieldList;
@@ -9,7 +10,9 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\Convert;
+use SilverStripe\Assets\Image;
 
 /**
  * DataObject holding Slide data. If you fill in External link, InternalLink setup will be ignored.
@@ -31,11 +34,11 @@ class MaxSkitterSlide extends DataObject
 	);
 
 	private static $has_one = array(
-		'MaxSkitterImage' => 'Image',
-		"InternalLink" => "SiteTree"
+		'MaxSkitterImage' => Image::class,
+		"InternalLink" => SiteTree::class
 	);
 
-	private static $belongs_many_many = array('Page' => 'Page');
+	private static $belongs_many_many = array('Page' => Page::class);
 
 	// Tell the datagrid what fields to show in the table
 	private static $summary_fields = array(

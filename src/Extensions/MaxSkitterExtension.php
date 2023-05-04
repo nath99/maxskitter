@@ -59,7 +59,9 @@ class MaxSkitterExtension extends Extension
 	 * */
 	public function SkitterSlidesRecursive()
 	{
-		if (self::$hasCachedSlides) return self::$cachedSlides;
+		if (self::$hasCachedSlides) {
+			return self::$cachedSlides;
+		}
 
 		$page = $this->owner;
 		$slides = $this->owner->MaxSkitterSlides();
@@ -93,7 +95,7 @@ class MaxSkitterExtension extends Extension
 		$skitterConfig = array();
 
 		// loop for all config fields
-		foreach (MaxSkitterDefaults::get_skitterConfigFields()  as $key => $value) {
+		foreach (MaxSkitterDefaults::get_skitterConfigFields() as $key => $value) {
 
 			// Db fields are prefixed
 			$prefixed_key = MaxSkitterDefaults::$dbFieldsPrefix . $key;
