@@ -24,10 +24,6 @@ class MaxSkitterImageDecorator extends DataExtension
 {
 	use Configurable;
 
-	private static $SkitterSlideWidth = 800;
-
-	private static $SkitterSlideHeight = 300;
-
 	function generateSkitterSlide($gd)
 	{
 		return $gd->croppedResize(
