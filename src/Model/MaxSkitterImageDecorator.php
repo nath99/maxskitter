@@ -3,6 +3,7 @@
 namespace SilverMax\MaxSkitter\Model;
 
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Config\Configurable;
 
 /**
  * Defines MaxSkitter image resize options, if you dont like used cropped resize, use your own copy of this file
@@ -19,19 +20,31 @@ use SilverStripe\ORM\DataExtension;
  * @author Pali Ondras
  */
 
-class MaxSkitterImageDecorator extends DataExtension {
+class MaxSkitterImageDecorator extends DataExtension
+{
+	use Configurable;
 
-	public static $SkitterSlideWidth = 800;
+	private static $SkitterSlideWidth = 800;
 
-	public static $SkitterSlideHeight = 300;
+	private static $SkitterSlideHeight = 300;
 
-	function generateSkitterSlide($gd) {
-		return $gd->croppedResize(self::$SkitterSlideWidth,self::$SkitterSlideHeight);
+	function generateSkitterSlide($gd)
+	{
+		return $gd->croppedResize(
+			$this->config()->SkitterSlideWidth,
+			$this->config()->SkitterSlideHeight
+		);
 	}
 
-	function SkitterSlide() {
-		return ($this->owner->Width == self::$SkitterSlideWidth && $this->owner->Height == self::$SkitterSlideHeight) ? $this->owner : $this->owner->getFormattedImage('SkitterSlide');
+	function SkitterSlide()
+	{
+		if (
+			$this->owner->Width == $this->config()->SkitterSlideWith
+			&& $this->owner->Height == $this->config()->SkitterSlideHeight
+		) {
+			return $this->owner;
+		} else {
+			return $this->owner->getFormattedImage('SkitterSlide');
+		}
 	}
-
 }
-

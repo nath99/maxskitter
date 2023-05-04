@@ -1,0 +1,7 @@
+---
+name: MaxSkitter_variables
+---
+
+SilverMax\MaxSkitter\Model\MaxSkitterImageDecorator:
+  SkitterSlideWidth: 800
+  SkitterSlideHeight: 300

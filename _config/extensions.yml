@@ -1,0 +1,20 @@
+---
+Name: MaxSkitter_extensions
+---
+
+Page:
+  extensions:
+    - SilverMax\MaxSkitter\Model\MaxSkitterDecorator
+    - SilverMax\MaxSkitter\Extensions\MaxSkitterConfigExtension
+
+PageController:
+  extensions:
+    - SilverMax\MaxSkitter\Extensions\MaxSkitterExtension
+
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - SilverMax\MaxSkitter\Extensions\MaxSkitterConfigExtension
+
+SilverStripe\Assets\Image:
+  extensions:
+    - SilverMax\MaxSkitter\Model\MaxSkitterImageDecorator
