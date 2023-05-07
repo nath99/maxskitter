@@ -1,0 +1,12 @@
+mappings:
+  MaxSkitterDecorator: Silvermax\MaxSkitter\Extensions\MaxSkitterDecorator
+  MaxSkitterConfigExtension: Silvermax\MaxSkitter\Extensions\MaxSkitterConfigExtension
+  MaxSkitterImageDecorator: Silvermax\MaxSkitter\Extensions\MaxSkitterImageDecorator
+  MaxSkitterExtension: Silvermax\MaxSkitter\Extensions\MaxSkitterExtension
+  MaxSkitterDefaults: Silvermax\MaxSkitter\Config\MaxSkitterDefaults
+  MaxSkitterSlide: Silvermax\MaxSkitter\Models\MaxSkitterSlide
+
+SilverStripe\ORM\DatabaseAdmin:
+  classname_value_remapping:
+    MaxSkitterSlide: Silvermax\MaxSkitter\Models\MaxSkitterSlide
+

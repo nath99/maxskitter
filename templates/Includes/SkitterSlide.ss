@@ -1,4 +1,4 @@
 <a href="$Link" title="$aTitle" class="$animationClass">
-	<% include SkitterImage %>
+	<% include $SkitterImage %>
 </a>
-<% include SkitterLabel %>
+<% include $SkitterLabel %>

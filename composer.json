@@ -12,9 +12,29 @@
 	],
 	"require":
 	{
-		"silverstripe/framework": "3.*",
-		"silverstripe/cms": "3.*",
+		"silverstripe/framework": "4.*",
+		"silverstripe/cms": "4.*",
 		"composer/installers": "*",
-		"undefinedoffset/sortablegridfield": "*"
-	}
+		"undefinedoffset/sortablegridfield": "*",
+		"silverstripe/asset-admin": "^1.12",
+		"silverstripe/vendor-plugin": "^1.6"
+	},
+	"extra": {
+		"expose": [
+			"css",
+			"images",
+			"javascript"
+		]
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true,
+			"silverstripe/vendor-plugin": true
+		}
+	},
+	"autoload": {
+        "psr-4": {
+            "SilverMax\\MaxSkitter\\": "src/"
+        }
+    }
 }

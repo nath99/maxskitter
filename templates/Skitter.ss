@@ -1,9 +1,9 @@
 <div class="box_skitter" id="skitter">
 	<ul>
-		<% control SkitterSlides %>
+		<% with $SkitterSlides %>
 			<li>
-				<% include SkitterSlide %>
+				<% include $SkitterSlide %>
 			</li>
-		<% end_control %>
+		<% end_with %>
 	</ul>
 </div>

@@ -1,0 +1,7 @@
+---
+name: maxskitter-defaults
+---
+
+Silvermax\MaxSkitter\Extensions\MaxSkitterImageDecorator:
+  slideWidth: 800
+  slideHeight: 300
