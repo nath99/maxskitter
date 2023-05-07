@@ -34,7 +34,7 @@
 	},
 	"autoload": {
         "psr-4": {
-            "SilverMax\\MaxSkitter\\": "src/"
+            "Silvermax\\MaxSkitter\\": "src/"
         }
     }
 }
