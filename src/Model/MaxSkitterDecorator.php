@@ -2,6 +2,7 @@
 
 namespace SilverMax\MaxSkitter\Model;
 
+use SilverStripe\ORM\SS_List;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\CheckboxField;
@@ -15,6 +16,8 @@ use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
  * @link skitter http://www.thiagosf.net/projects/jquery/skitter/
  * @link maxskitter https://github.com/Silvermax/maxskitter/
  * @author Pali Ondras
+ *
+ * @method SS_List MaxSkitterSlides()
  */
 
 class MaxSkitterDecorator extends DataExtension
@@ -34,25 +37,23 @@ class MaxSkitterDecorator extends DataExtension
 		)
 	);
 
-	function updateCMSFields(FieldList $fields)
+	public function updateCMSFields(FieldList $fields)
 	{
 
 		$fields->addFieldToTab(
 			'Root.SkitterSlides',
-			$grid = new GridField(
+			$grid = GridField::create(
 				'MaxSkitterSlides',
 				'Skitter slides',
-				$this->owner->MaxSkitterSlides(),
+				$this->MaxSkitterSlides(),
 				GridFieldConfig_RelationEditor::create(10)
 			)
 		);
 
-		if (class_exists("GridFieldSortableRows")) {
-			$grid->getConfig()->addComponent(new GridFieldSortableRows('SortOrder'));
-		}
+		$grid->getConfig()->addComponent(new GridFieldSortableRows('SortOrder'));
 	}
 
-	function updateSettingsFields(FieldList $fields)
+	public function updateSettingsFields(FieldList $fields)
 	{
 		$fields->addFieldToTab(
 			"Root.SkitterConfig",
