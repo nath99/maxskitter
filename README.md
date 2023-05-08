@@ -13,8 +13,8 @@ This module makes Skitter working with your SilverStripe installation.
 
 ## Requirements
 
-[SilverStripe ^4](https://www.silverstripe.org/download/)
-[UndefinedOffset/SortableGridField](https://github.com/UndefinedOffset/SortableGridField)
+- [SilverStripe ^4](https://www.silverstripe.org/download/)
+- [UndefinedOffset/SortableGridField](https://github.com/UndefinedOffset/SortableGridField)
 
 ## Installation
 
