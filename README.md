@@ -2,7 +2,7 @@
 
 **Skitter** is full-featured jQuery Slideshow plugin with beautifull transitions. Is highly configurable and has good performance. Skitter website is here: http://www.thiagosf.net/projects/jquery/skitter/, github sources here: https://github.com/thiagosf/SkitterSlideshow
 
-This module makes Skitter working with your SilverStripe installation. 
+This module makes Skitter working with your SilverStripe installation.
 
 ## Key features
 
@@ -13,16 +13,33 @@ This module makes Skitter working with your SilverStripe installation.
 
 ## Requirements
 
-SS 2.4:
-    dataobject_manager
-    uploadify
-SS 3.0:
-    sortablegridfield (optional)
+[SilverStripe ^4](https://www.silverstripe.org/download/)
+[UndefinedOffset/SortableGridField](https://github.com/UndefinedOffset/SortableGridField)
 
 ## Installation
 
-    Place module into root of your SS installation
-    Dev/build your SS installation
+`composer require silvermax/maxskitter`
+
+Add the following yml to your configuration (either config.yml or a new maxskitter.yml file):
+
+```yml
+Page:
+  extensions:
+    - Silvermax\MaxSkitter\Extensions\MaxSkitterDecorator
+    - Silvermax\MaxSkitter\Extensions\MaxSkitterConfigExtension
+
+PageController:
+  extensions:
+    - Silvermax\MaxSkitter\Extensions\MaxSkitterExtension
+
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - Silvermax\MaxSkitter\Extensions\MaxSkitterConfigExtension
+
+SilverStripe\Assets\Image:
+  extensions:
+    - Silvermax\MaxSkitter\Extensions\MaxSkitterImageDecorator
+```
 
 ## Configuration
 ### Skitter options
@@ -51,11 +68,12 @@ Exactly same as SiteConfig, config tab available in Root.Content.SkitterConfig t
 
 ### Configuration of Skitter box size and Skitter images size:
 
-If you are fine with cropped resizing of your images, you can configure dimension in you mysite/_config.php. Example:
+If you are fine with cropped resizing of your images, you can configure dimension in your _config/config.yml. Example:
 
-```php
-MaxSkitterImageDecorator::$SkitterSlideWidth = 850;
-MaxSkitterImageDecorator::$SkitterSlideHeight = 250;
+```yml
+Silvermax\MaxSkitter\Extensions\MaxSkitterImageDecorator:
+  slideWidth: <your_value>
+  slideHeight: <your_value>
 ```
 
 Default box size is 800x300px which will not suit your needs in many case. This size is defined in maxskitter/css/skitter.styles.css. You can copy this file to your theme and edit as you need, or you can just create css called skitter.custom.css in your theme and edit only what you need (this css will be called automaticly), example:
@@ -90,7 +108,7 @@ or (this will show your no-slide image if no slides available)
 ```
 
 ## Collaboration
-If you want to help out and make some improvements please fork this project and submit a pull request (see this guide on how to do this:  [Pull requests](http://help.github.com/pull-requests/)). 
+If you want to help out and make some improvements please fork this project and submit a pull request (see this guide on how to do this:  [Pull requests](http://help.github.com/pull-requests/)).
 
 ## Problems / issues
 There are 3 common issues with maxskitter module: 1) Slides are not showing up. Reason: slides are added via backend, but not activated by checking the checkbox.(SS 2.4 only) 2) Script doesn't work. Reason: core jquery is called twice - if you have your own core jquery already called, disable maxskitter's version by adding thins into mysite/_config.php: Requirements::block("maxskitter/javascript/jquery-1.6.3.min.js"); Same issue is possible with easing and animate-color jquery files. Block them if your own versions already called. 3) Instead of slides, black box is shown. Reason: javascript conflicts - if maxskitter is not working even 1) and 2) is fine, try to disable all your custom JS scripts if it helps.

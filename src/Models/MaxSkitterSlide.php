@@ -11,6 +11,7 @@ use SilverStripe\Forms\CheckboxField;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Assets\Image;
 use SilverStripe\Core\Convert;
+use SilverStripe\CMS\Model\SiteTree;
 use Silvermax\MaxSkitter\Config\MaxSkitterDefaults;
 
 /**
@@ -34,7 +35,7 @@ class MaxSkitterSlide extends DataObject
 
     private static $has_one = array(
         'MaxSkitterImage' => Image::class,
-        "InternalLink" => SiteTree::class
+        'InternalLink' => SiteTree::class
     );
 
     private static $belongs_many_many = array(

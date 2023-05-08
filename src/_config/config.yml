@@ -3,7 +3,7 @@ name: maxskitter-extensions
 ---
 Page:
   extensions:
-    - Silvermax\MaxSkitter\Model\MaxSkitterDecorator
+    - Silvermax\MaxSkitter\Extensions\MaxSkitterDecorator
     - Silvermax\MaxSkitter\Extensions\MaxSkitterConfigExtension
 
 PageController:
@@ -16,7 +16,7 @@ SilverStripe\SiteConfig\SiteConfig:
 
 SilverStripe\Assets\Image:
   extensions:
-    - Silvermax\MaxSkitter\Model\MaxSkitterImageDecorator
+    - Silvermax\MaxSkitter\Extensions\MaxSkitterImageDecorator
 
 ---
 name: maxskitter-defaults
