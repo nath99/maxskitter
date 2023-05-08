@@ -34,7 +34,7 @@ class MaxSkitterExtension extends Extension
     public function onAfterInit()
     {
         if ($this->owner->SkitterSlidesRecursive()) {
-            Requirements::CSS("silvermax/maxskitter:skitter.styles.css");
+            Requirements::CSS("silvermax/maxskitter:css/skitter.styles.css");
             // Requirements::CSS("silvermax/maxskitter:skitter.custom");
 
             Requirements::combine_files("combined.skitter.js", [
