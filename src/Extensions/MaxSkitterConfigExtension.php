@@ -24,7 +24,7 @@ class MaxSkitterConfigExtension extends DataExtension
 	public static function add_to_class($class, $extensionClass, $args = null)
 	{
 		if ($class == Page::class || $class == SiteConfig::class) {
-			Config::modify()->set($class, 'db', MaxSkitterDefaults::get_skitterDbFields());
+			Config::modify()->merge($class, 'db', MaxSkitterDefaults::get_skitterDbFields());
 		}
 		parent::add_to_class($class, $extensionClass, $args);
 	}

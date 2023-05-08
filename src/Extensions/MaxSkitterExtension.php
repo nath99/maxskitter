@@ -66,7 +66,7 @@ class MaxSkitterExtension extends Extension
         $page = $this->owner;
         $slides = $this->owner->MaxSkitterSlides();
 
-        while (!$slides->exists() && $page->ParentID != 0 && !$page->notRecursive) {
+        while (!$slides->exists() && $page->ParentID != 0 && !$page->skitterNotRecursive) {
             $page = $page->Parent();
             $slides = $page->MaxSkitterSlides();
         }
