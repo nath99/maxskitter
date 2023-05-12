@@ -25,6 +25,8 @@ use Silvermax\MaxSkitter\Config\MaxSkitterDefaults;
 
 class MaxSkitterSlide extends DataObject
 {
+    private static $table_name = 'MaxSkitterSlide';
+
     private static $db = array(
         'Name' => 'Varchar(64)',
         'Label' => 'Text',
