@@ -2,6 +2,7 @@
 
 namespace Silvermax\MaxSkitter\Extensions;
 
+use SilverStripe\Assets\Image_Backend;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\Core\Config\Configurable;
 
@@ -31,13 +32,15 @@ class MaxSkitterImageDecorator extends DataExtension
 
 	function SkitterSlide()
 	{
-		if (
-			$this->owner->Width == $this->config()->get('slideWidth')
-			&& $this->owner->Height == $this->config()->get('slideHeight')
-		) {
-			return $this->owner;
-		} else {
-			return $this->owner->getFormattedImage('SkitterSlide');
-		}
+		// Generates the manipulation key
+		$variant = $this->owner->variantName(__FUNCTION__);
+		$width = $this->config()->get('slideWidth');
+		$height = $this->config()->get('slideHeight');
+
+		// Instruct the backend to search for an existing variant with this key,
+        // and include a callback used to generate this image if it doesn't exist
+		return $this->owner->manipulateImage($variant, function (Image_Backend $backend) use ($height, $width) {
+			return $backend->croppedResize($width, $height);
+        });
 	}
 }
